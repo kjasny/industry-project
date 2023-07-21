@@ -1,7 +1,19 @@
 const {
   getOneCustomerWithTexts,
   addNewCustomer,
+  getAllCustomers
 } = require("../models/customerModels");
+
+const getAllCustomersController = async (request, response) => {
+  try{const allCustomers = await getAllCustomers()
+
+  return response.send(allCustomers)
+  } catch(error){
+    console.log(error)
+    throw new Error("ERROR!")
+  }
+
+}
 
 const getOneCustomerWithTextsController = async (request, response) => {
   try {
@@ -65,4 +77,5 @@ module.exports = {
   getOneCustomerWithTextsController,
   addNewCustomerController,
   deleteCustomerFromDatabaseController,
+  getAllCustomersController
 };

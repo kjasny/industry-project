@@ -1,5 +1,15 @@
 const models = require(".");
 
+const getAllCustomers = async () => {
+  try{const allCustomers = await models.CustomersModel.findAll()
+
+  return allCustomers
+  } catch(error){
+    console.log(error)
+    throw new Error('ERROR!')
+  }
+}
+
 const getOneCustomerWithTexts = async (id) => {
   try {
     const singleCustomer = models.CustomersModel.findOne({
@@ -37,4 +47,5 @@ module.exports = {
   getOneCustomerWithTexts,
   addNewCustomer,
   deleteCustomerFromDatabase,
+  getAllCustomers
 };

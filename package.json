@@ -4,7 +4,13 @@
   "description": "Our Challenge & The Scenario E-commerce marketing is growing at an unprecedented speed. Here at Privy, we are trying to find new channels so merchants can reach out to their customers and send custom promotions to increase their sales. One of the services Privy provides to their customers is email marketing. However, after doing some investigation, email is losing a lot of power among younger generations. This New York Times article explains why younger generations are not using email anymore and why they are switching to use more and more text messages. After seeing this new market opportunity, Privy has decided to expand its business to include SMS marketing. This new channel will match Privy’s mission, which is to help grow small businesses by providing new tools to our customers.",
   "main": "index.js",
   "scripts": {
-    "dev": "env-cmd nodemon index.js",
+    "dev": "concurrently \"npm:dev:server\" \"npm:dev:client\" ",
+    "dev:server": "npm run dev:client:build && env-cmd nodemon index.js",
+    "dev:server:only": "env-cmd nodemon index.js",
+    "dev:client": "cd client && npm start",
+    "dev:client:build": "cd client && npm run build",
+    "dev:client:test": "cd client && npm run test",
+    "dev:server:test": "mocha tests/**/*.test.js",
     "dev:migrate:up": "env-cmd sequelize db:migrate --env development --config ./configs/sequelize.js",
     "dev:migrate:undo": "env-cmd sequelize  db:migrate:undo --env development --config ./configs/sequelize.js",
     "dev:migrate:destroy": "env-cmd sequelize  db:migrate:undo:all --env development --config ./configs/sequelize.js"
@@ -13,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "csvtojson": "^2.0.10",
     "dotenv": "^16.3.1",
     "env-cmd": "^10.1.0",
@@ -24,6 +31,7 @@
     "twilio": "^4.14.0"
   },
   "devDependencies": {
+    "concurrently": "^8.2.0",
     "nodemon": "^2.0.22",
     "sequelize-cli": "^6.6.1"
   }

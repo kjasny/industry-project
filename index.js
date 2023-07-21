@@ -4,17 +4,26 @@ const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 const csv = require("csvtojson");
 const models = require('./models/index')
+const cors = require('cors')
+const path = require('path')
 
 const {
   getOneCustomerWithTextsController,
   addNewCustomerController,
   deleteCustomerFromDatabaseController,
+  getAllCustomersController
 } = require("./controllers/customerControllers");
 const {
   getAllTextsFromCampaignController,
   createNewCampaignWithTextMessagesController,
   sendSingleTextWithExistingCampaign,
 } = require("./controllers/campaignControllers");
+
+
+app.use(cors())
+app.use(express.static("client/build"));
+
+app.get("/privy/customers", getAllCustomersController);
 
 app.get("/privy/campaigns/:id", getAllTextsFromCampaignController);
 
@@ -53,6 +62,10 @@ app.post("/privy/upload", upload.single("file"), async (req, res) => {
   res.send(processedCustomers)
 });
 
-app.listen(1337, () => {
-  console.log("listening on http://localhost:1337");
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
+
+app.listen(8080, () => {
+  console.log("listening on http://localhost:8080");
 });
