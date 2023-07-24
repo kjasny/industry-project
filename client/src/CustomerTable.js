@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios'
+import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
+import Stack from '@mui/material/Stack';
 
 
 function CustomerTable() {
@@ -57,21 +60,28 @@ const rows = renderCustomerInRow;
 
 
   return (
-    <div className="CustomerTable">
-          <div style={{ height: 700, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
-          },
-        }}
-        pageSizeOptions={[5, 10]}
-        checkboxSelection
-      />
-    </div>
+    <div className='CustomerTablePage'>
+          <Stack direction="row" spacing={2}>
+            <Button variant="contained" color="secondary" endIcon={<SendIcon />}>
+        Create New Campaign
+      </Button>
+    </Stack>
+      <div className="CustomerTable">
+            <div style={{ height: 700, width: '100%' }}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: { page: 0, pageSize: 10 },
+              },
+            }}
+            pageSizeOptions={[10, 20]}
+            checkboxSelection
+         />
+        </div>
 
+      </div>
     </div>
   );
 }
