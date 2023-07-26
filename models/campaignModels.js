@@ -22,9 +22,9 @@ const sendTextMessages = async (newCampaign) => {
 
     const addedCampaign = await models.CampaignsModel.create(campaignData);
 
-    customerList.forEach(async (customer) => {
+    customerList.forEach(async (id) => {
       const foundCustomer = await models.CustomersModel.findOne({
-        where: { id: parseInt(customer.id) },
+        where: { id: parseInt(id) },
       });
       const { phoneNumber } = foundCustomer;
 
