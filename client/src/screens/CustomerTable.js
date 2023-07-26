@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios'
 import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
 import Stack from '@mui/material/Stack';
+import ModalComponent from '../components/ModalComponent'
+import SendIcon from '@mui/icons-material/Send';
 
 
 function CustomerTable() {
   
   const [customers, setCustomers] = useState([])
+  const handleOpen = () => setOpen(true);
+  const [selectedCustomers, setSelectedCustomers] = useState([])
+  const [open, setOpen] = React.useState(false);
 
 useEffect(() => {
   const fetchCustomers = async() => {
@@ -57,14 +61,13 @@ const columns = [
 
 const rows = renderCustomerInRow;
 
-
-
   return (
     <div className='CustomerTablePage'>
           <Stack direction="row" spacing={2}>
-            <Button variant="contained" color="secondary" endIcon={<SendIcon />}>
+            <Button variant="contained" color="secondary" endIcon={<SendIcon />} onClick={handleOpen}>
         Create New Campaign
       </Button>
+      <ModalComponent selectedCustomers={selectedCustomers} setSelectedCustomers={setSelectedCustomers} open={open} setOpen={setOpen} />
     </Stack>
       <div className="CustomerTable">
             <div style={{ height: 700, width: '100%' }}>
@@ -78,6 +81,10 @@ const rows = renderCustomerInRow;
             }}
             pageSizeOptions={[10, 20]}
             checkboxSelection
+            onRowSelectionModelChange={(newRowSelectionModel) => {
+              setSelectedCustomers(newRowSelectionModel);
+            }}
+            rowSelectionModel={selectedCustomers}
          />
         </div>
 
