@@ -3,8 +3,9 @@ import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios'
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import ModalComponent from '../components/ModalComponent'
+import ModalComponent from '../../components/ModalComponent'
 import SendIcon from '@mui/icons-material/Send';
+import { useNavigate } from 'react-router-dom'
 
 
 function CustomerTable() {
@@ -61,6 +62,12 @@ const columns = [
 
 const rows = renderCustomerInRow;
 
+const navigate = useNavigate()
+
+const changePage = () => {
+  navigate("/")
+}
+
   return (
     <div className='CustomerTablePage'>
           <Stack direction="row" spacing={2}>
@@ -88,6 +95,9 @@ const rows = renderCustomerInRow;
          />
         </div>
 
+      </div>
+      <div>
+        <Button variant="contained" color="secondary" onClick={changePage}>Upload More Customers</Button>
       </div>
     </div>
   );
