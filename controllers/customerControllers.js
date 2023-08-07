@@ -23,7 +23,7 @@ const getOneCustomerWithTextsController = async (request, response) => {
 
     return response.send(singleCustomerWithTexts);
   } catch (error) {
-    return responses.sendStatus(404);
+    return response.sendStatus(404);
   }
 };
 
