@@ -57,7 +57,13 @@ app.post("/privy/upload", upload.single("file"), async (req, res) => {
     return newCustomer;
   });
   //TODO : CLEANSE DATA BEFORE ENTERS DATABASE
-  let processedCustomers = await models.CustomersModel.bulkCreate(customers)
+  let cleanCustomers = customers.map((customer) => {
+    //let fixedPhoneNumber = customer.phoneNumber.replaceAll('-', '')
+    let correctedPhoneNumber = `+1${customer.phoneNumber.replaceAll('-'|' ', '')}`
+    let cleanCustomer = {...customer, phoneNumber: correctedPhoneNumber}
+    return cleanCustomer
+  })
+  let processedCustomers = await models.CustomersModel.bulkCreate(cleanCustomers)
 
   res.send(processedCustomers)
 });

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
 import ModalComponent from "../../components/ModalComponent";
 import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
@@ -70,8 +69,12 @@ function CustomerTable() {
 
   const navigate = useNavigate();
 
-  const changePage = () => {
+  const changePage1 = () => {
     navigate("/");
+  };
+
+  const changePage2 = () => {
+    navigate("/privy/customer");
   };
 
   return (
@@ -115,8 +118,13 @@ function CustomerTable() {
       </Button>
       </Grid>
       <Grid item>
-      <Button variant="contained" color="secondary" onClick={changePage}  endIcon={<AddCircleIcon />}>
+      <Button variant="contained" color="secondary" onClick={changePage1}  endIcon={<AddCircleIcon />}>
         Upload More Customers
+      </Button>
+      </Grid>
+      <Grid item>
+      <Button variant="contained" color="secondary" onClick={changePage2}  endIcon={<AddCircleIcon />}>
+        Manually Add New Customer
       </Button>
       </Grid>
       </Grid>
